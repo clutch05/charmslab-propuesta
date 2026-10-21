@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Propuesta Charms Lab</title>
+<meta property="og:title" content="Propuesta de rediseño · Charms Lab">
+<meta property="og:description" content="Inicio, colecciones y ficha de producto, rediseñados para vender más en el celular.">
+<meta property="og:image" content="https://clutch05.github.io/charmslab-propuesta/shots/fold-home-390.jpg">
+<meta property="og:url" content="https://clutch05.github.io/charmslab-propuesta/">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#131313; --card:#1b1b1b; --card2:#232323; --line:#2e2e2e;
+    --ink:#f5f5f5; --muted:#a3a3a3;
+    --green:#00E383; --red:#E93D3D; --amber:#F5A623; --purple:#410380; --purple2:#7b3fe4;
+    --head:'Plus Jakarta Sans',system-ui,sans-serif; --body:'Inter',system-ui,sans-serif;
+  }
+  /* La marca es oscura en ambos temas */
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --bg:#131313; --ink:#f5f5f5; } }
+  :root[data-theme="dark"]{ --bg:#131313; --ink:#f5f5f5; }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:820px;margin:0 auto;padding:0 16px 64px}
+  h1,h2,h3{font-family:var(--head);font-weight:800;letter-spacing:-.02em;line-height:1.12;margin:0}
+  h2{font-size:clamp(26px,4.4vw,36px)}
+  h3{font-size:18px}
+  section{padding:56px 0;border-bottom:1px solid var(--line)}
+  .sub{color:var(--muted);margin:10px 0 0;font-size:17px}
+  .g{color:var(--green)} .r{color:var(--red)}
+  img{max-width:100%;display:block}
+
+  header{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:20px 0}
+  .logo{font-family:var(--head);font-weight:800;font-size:20px;letter-spacing:-.02em}
+  .logo span{color:var(--green)}
+  .date{color:var(--muted);font-size:13px}
+
+  .hero{padding:40px 0 56px;border-bottom:1px solid var(--line)}
+  .hero .pre{color:var(--muted);font-size:15px;margin-bottom:14px}
+  .hero h1{font-size:clamp(34px,6.4vw,58px)}
+  .hero h1 mark{background:none;color:var(--green)}
+  .hero .sub{font-size:18px;max-width:620px}
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+  .chip{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:8px 16px;font-size:14px;font-weight:500}
+  .chip b{color:var(--green)}
+
+  .score{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:center;background:var(--card);border-radius:18px;padding:22px;margin-top:26px}
+  .dial{width:120px;height:120px;border-radius:50%;display:grid;place-items:center;position:relative;background:conic-gradient(var(--amber) 0 57%, #2c2c2c 57% 100%)}
+  .dial::before{content:"";position:absolute;inset:10px;border-radius:50%;background:var(--card)}
+  .dial b{position:relative;font-family:var(--head);font-size:38px;font-weight:800;line-height:1}
+  .dial small{position:relative;display:block;color:var(--muted);font-size:12px;text-align:center}
+  .score p{margin:0;color:var(--muted)}
+  .score p strong{color:var(--ink)}
+
+  .find{display:grid;grid-template-columns:150px 1fr;gap:18px;align-items:start;background:var(--card);border-radius:18px;padding:18px;margin-top:16px}
+  .find img{border-radius:12px;width:100%}
+  .find .n{font-family:var(--head);font-weight:800;color:var(--red);font-size:13px;letter-spacing:.06em;margin-bottom:6px}
+  .find p{margin:8px 0 0;color:var(--muted);font-size:15px}
+
+  .pages{display:grid;gap:16px;margin-top:28px}
+  .pg{background:var(--card);border-radius:18px;padding:22px;border-top:3px solid var(--green)}
+  .pg .num{font-family:var(--head);font-weight:800;color:var(--green);font-size:14px;margin-bottom:6px}
+  .pg ul{margin:12px 0 0;padding-left:20px}
+  .pg li{margin:6px 0;font-size:15px}
+  .pg .gain{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+  .pg .gain b{color:var(--green)}
+
+  .ba{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px}
+  .ba .col{background:var(--card);border-radius:18px;padding:18px}
+  .ba .lab{display:inline-block;font-family:var(--head);font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:4px 12px;margin-bottom:12px}
+  .ba .antes .lab{background:rgba(233,61,61,.15);color:var(--red)}
+  .ba .despues .lab{background:rgba(0,227,131,.14);color:var(--green)}
+  .ba img{border-radius:12px;margin-bottom:12px}
+  .ba ul{margin:0;padding-left:20px} .ba li{margin:6px 0;font-size:15px}
+  .mock{border-radius:12px;background:#f7f5f2;color:#111;padding:16px 14px;margin-bottom:12px;font-family:var(--head)}
+  .mock .bar{font-size:10px;background:#ffd0ee;border-radius:6px;padding:5px 8px;text-align:center;font-weight:700;margin-bottom:12px}
+  .mock .t{font-size:21px;font-weight:800;line-height:1.1}
+  .mock .s{font-family:var(--body);font-size:12.5px;color:#444;margin:8px 0 12px}
+  .mock .btn{display:inline-block;background:#111;color:#fff;border-radius:999px;padding:9px 18px;font-size:13px;font-weight:700}
+  .mock .row{display:flex;gap:8px;margin-top:14px}
+  .mock .row span{flex:1;font-family:var(--body);font-size:11px;border:1.5px solid #ddd;border-radius:10px;padding:8px 6px;text-align:center;background:#fff}
+  .mock .row span.on{border-color:#111;font-weight:700}
+  .mock .stars{font-family:var(--body);font-size:12px;margin-top:10px;color:#444}
+
+  .steps{display:grid;gap:12px;margin-top:28px;counter-reset:s}
+  .step{display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start;background:var(--card);border-radius:16px;padding:18px}
+  .step::before{counter-increment:s;content:counter(s);width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--purple);font-family:var(--head);font-weight:800;font-size:18px}
+  .step p{margin:4px 0 0;color:var(--muted);font-size:15px}
+  .step .when{color:var(--green);font-size:13px;font-weight:600}
+
+  .proof{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:28px}
+  .proof div{background:var(--card);border-radius:16px;padding:18px}
+  .proof b{display:block;font-family:var(--head);font-size:26px;font-weight:800;color:var(--green);line-height:1.1}
+  .proof span{color:var(--muted);font-size:14px}
+  .brands{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+  .brands span{background:var(--card2);border-radius:10px;padding:8px 14px;font-family:var(--head);font-weight:700;font-size:14px}
+
+  .price{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px}
+  .pcard{background:linear-gradient(160deg,#2a1150,#1b1b1b 60%);border:1px solid var(--purple2);border-radius:20px;padding:26px}
+  .pcard .lbl{color:var(--muted);font-size:14px}
+  .pcard .amt{font-family:var(--head);font-weight:800;font-size:clamp(36px,6vw,48px);color:var(--green);line-height:1.05;margin:8px 0 4px}
+  .pcard .iva{color:var(--muted);font-size:14px}
+  .pay{margin-top:18px;display:grid;gap:8px}
+  .pay div{display:flex;justify-content:space-between;gap:12px;background:rgba(0,0,0,.25);border-radius:12px;padding:10px 14px;font-size:15px}
+  .pay b{font-family:var(--head)}
+  .inc{background:var(--card);border-radius:20px;padding:26px}
+  .inc ul{list-style:none;margin:0;padding:0}
+  .inc li{position:relative;padding-left:28px;margin:10px 0;font-size:15px}
+  .inc li::before{content:"✓";position:absolute;left:0;top:0;color:var(--green);font-weight:800}
+  .no{margin-top:16px;padding-top:14px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+
+  .cta{text-align:center;background:linear-gradient(135deg,#410380,#131313);border-radius:24px;padding:48px 20px;margin-top:8px}
+  .cta h2{margin-bottom:10px}
+  .btn{display:inline-block;margin-top:22px;background:var(--green);color:#08110c;font-family:var(--head);font-weight:800;text-decoration:none;padding:16px 30px;border-radius:12px;font-size:17px;min-height:48px}
+  .contact{margin-top:16px;color:var(--muted);font-size:14px}
+  .contact a{color:var(--ink)}
+  footer{text-align:center;color:var(--muted);font-size:12px;padding-top:36px}
+
+  @media (max-width:640px){
+    .ba,.price,.proof{grid-template-columns:1fr}
+    .find{grid-template-columns:110px 1fr}
+    .score{grid-template-columns:1fr;justify-items:start}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="logo">myshopi<span>guru</span></div>
+    <div class="date">21 de octubre de 2026</div>
+  </header>
+
+  <div class="hero">
+    <div class="pre">Propuesta para el equipo de <strong>Charms Lab</strong></div>
+    <h1>Tu tienda, lista para vender charms <mark>de&nbsp;6&nbsp;en&nbsp;6</mark></h1>
+    <p class="sub">Rediseñamos tu inicio, tus colecciones y tu ficha de producto para que en el celular se entienda qué vendes, se vea tu 6x4 y nada se interponga entre tu cliente y el botón de pagar.</p>
+    <div class="chips">
+      <span class="chip"><b>3</b> páginas rediseñadas</span>
+      <span class="chip">Lista en <b>30 días</b></span>
+      <span class="chip">Tus <b>1,109</b> productos intactos</span>
+    </div>
+  </div>
+
+  <section>
+    <h2>Lo que encontramos en tu tienda</h2>
+    <p class="sub">Revisamos charmslab.mx en el celular y en la computadora, página por página.</p>
+    <div class="score">
+      <div class="dial"><div><b>57</b><small>de 100</small></div></div>
+      <p><strong>Tienes lo difícil:</strong> un catálogo enorme, 1,117 reseñas con foto y una oferta que vende sola. <strong>Lo que falla es cómo se presenta.</strong> Son detalles de diseño, no de producto, y por eso se arreglan con un rediseño.</p>
+    </div>
+
+    <div class="find">
+      <img src="shots/fold-home-390.jpg" alt="Tu inicio hoy en el celular">
+      <div>
+        <div class="n">01 · INICIO</div>
+        <h3>No se entiende qué es Charms Lab</h3>
+        <p>La página abre con productos sueltos. No dice que son charms para tu pulsera ni que hay 6x4: tu mejor gancho apenas se asoma hasta abajo.</p>
+      </div>
+    </div>
+    <div class="find">
+      <img src="shots/fold-carrito-cajon-390.jpg" alt="Popup encima del carrito">
+      <div>
+        <div class="n">02 · CARRITO</div>
+        <h3>Un popup tapa el botón de pagar</h3>
+        <p>Justo cuando tu cliente ya agregó algo, aparece «Obtén $150» encima del carrito. Es el peor momento para interrumpirlo.</p>
+      </div>
+    </div>
+    <div class="find">
+      <img src="shots/ficha-compra-390.jpg" alt="La promoción en la ficha">
+      <div>
+        <div class="n">03 · FICHA</div>
+        <h3>El 6x4 se lee, pero no se elige</h3>
+        <p>La promoción vive en un recuadro de texto y tu cliente tiene que hacer la cuenta solo. Además, la garantía dice 60 días en la ficha y 30 en la política.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Las 3 páginas que rediseñamos</h2>
+    <p class="sub">Las tres por las que pasa cada venta. Todo con el vocabulario que tus clientes ya usan.</p>
+    <div class="pages">
+      <div class="pg">
+        <div class="num">01</div>
+        <h3>Inicio</h3>
+        <ul>
+          <li>Arriba, en una frase: qué vendes, para quién y tu 6x4, con un botón «Arma tu pulsera».</li>
+          <li>Tus personajes al frente (Stitch, Disney, Harry Potter…) y un menú corto que sí se usa en el celular.</li>
+          <li>Más vendidos que sí se pueden comprar: los agotados no salen.</li>
+          <li>Tus reseñas con foto cerca de arriba, no hasta el final.</li>
+        </ul>
+        <div class="gain">Lo que ganas: <b>el que llega de un anuncio entiende en 5 segundos por qué comprarte a ti.</b></div>
+      </div>
+      <div class="pg">
+        <div class="num">02</div>
+        <h3>Colecciones</h3>
+        <ul>
+          <li>Tarjeta de producto limpia: nombre, precio sin decimales, estrellas y botón para agregar.</li>
+          <li>Filtros y orden a la mano en el celular.</li>
+          <li>Cada colección con su banda y su promoción: Navidad, Halloween, Día de las Madres.</li>
+        </ul>
+        <div class="gain">Lo que ganas: <b>encontrar el charm de su personaje sin perderse en 37 colecciones.</b></div>
+      </div>
+      <div class="pg">
+        <div class="num">03</div>
+        <h3>Ficha de producto y carrito</h3>
+        <ul>
+          <li>Paquetes para elegir junto al botón: 1 · 6 · 10 charms, con lo que se ahorra en pesos.</li>
+          <li>Botón de compra en tu color, siempre a la vista en el celular.</li>
+          <li>Estrellas arriba, preguntas frecuentes (¿le queda a mi pulsera?, ¿se pone negro?, ¿cuándo llega?) y una sola garantía.</li>
+          <li>Carrito sin popups, que avisa cuánto falta para el envío gratis y para tu 6x4.</li>
+        </ul>
+        <div class="gain">Lo que ganas: <b>pedidos más grandes, porque llevar 6 se vuelve la opción obvia.</b></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>De cómo se ve hoy a cómo debería verse</h2>
+    <p class="sub">Así cambia lo primero que ve tu cliente en el celular.</p>
+    <div class="ba">
+      <div class="col antes">
+        <span class="lab">Hoy</span>
+        <img src="shots/fold-home-390.jpg" alt="Inicio actual de Charms Lab">
+        <ul>
+          <li>Abre con «Más vendidos».</li>
+          <li>No dice qué es ni el 6x4.</li>
+          <li>El #2 está agotado.</li>
+        </ul>
+      </div>
+      <div class="col despues">
+        <span class="lab">Con el rediseño</span>
+        <div class="mock" aria-label="Ejemplo de cómo se vería el inicio">
+          <div class="bar">6x4 en todos los charms · Envío gratis desde $399</div>
+          <div class="t">Charms de tus personajes favoritos</div>
+          <div class="s">Para tu pulsera, con acabado plata 925. Lleva 6 y paga 4.</div>
+          <span class="btn">Arma tu pulsera</span>
+          <div class="stars">★★★★★ 1,117 reseñas con foto</div>
+          <div class="row"><span>1 charm<br>$179</span><span class="on">6 charms<br>$716</span><span>10 charms<br>$1,253</span></div>
+        </div>
+        <ul>
+          <li>Qué es, para quién y la oferta, sin bajar.</li>
+          <li>Prueba social arriba.</li>
+          <li>El 6x4 se elige con un toque.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Así trabajamos</h2>
+    <p class="sub">Tú sigues vendiendo mientras tanto: tu tienda actual no se toca hasta el día del cambio.</p>
+    <div class="steps">
+      <div class="step"><div><div class="when">Día 1</div><h3>Arrancamos</h3><p>Nos das acceso a tu tienda y nos cuentas qué quieres empujar esta temporada.</p></div></div>
+      <div class="step"><div><div class="when">Días 2 a 20</div><h3>Rediseñamos las 3 páginas</h3><p>En una copia de tu tienda, con tus productos, tus fotos y tus colores.</p></div></div>
+      <div class="step"><div><div class="when">Días 21 a 28</div><h3>La revisamos juntos</h3><p>Por videollamada, en tu celular. Incluye 2 rondas de cambios.</p></div></div>
+      <div class="step"><div><div class="when">Día 30</div><h3>La publicamos</h3><p>Con tus apps de pago, reseñas y envíos funcionando. Sin perder productos, clientes ni pedidos.</p></div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Tiendas que ya rediseñamos</h2>
+    <p class="sub">Marcas mexicanas vendiendo todos los días con lo que hacemos.</p>
+    <div class="proof">
+      <div><b>0.59 → 1.22 %</b><span>conversión de MALI después del rediseño</span></div>
+      <div><b>+100</b><span>marcas atendidas</span></div>
+      <div><b>30 días</b><span>de la firma a la tienda publicada</span></div>
+    </div>
+    <div class="brands">
+      <span>Origo Shoes</span><span>Platina</span><span>Genwell</span><span>SOM HER</span><span>Opulenzo</span><span>QiHealth</span><span>Balompié</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>Tu inversión</h2>
+    <p class="sub">Un solo proyecto, sin mensualidades.</p>
+    <div class="price">
+      <div class="pcard">
+        <div class="lbl">Rediseño de 3 páginas</div>
+        <div class="amt">$11,052 MXN</div>
+        <div class="iva">US$600 · más IVA solo si necesitas factura</div>
+        <div class="pay">
+          <div><span>Al arrancar</span><b>$5,526</b></div>
+          <div><span>Al entregar</span><b>$5,526</b></div>
+        </div>
+      </div>
+      <div class="inc">
+        <ul>
+          <li>Inicio, colecciones y ficha de producto rediseñados</li>
+          <li>Carrito sin popups, con avance al envío gratis y al 6x4</li>
+          <li>Paquetes 1 · 6 · 10 charms en la ficha</li>
+          <li>Banners nuevos para tu temporada</li>
+          <li>Revisión por videollamada + 2 rondas de cambios</li>
+          <li>Tus productos, reseñas y apps intactos</li>
+        </ul>
+        <div class="no">No incluye: fotos nuevas de producto ni el costo de apps de terceros.</div>
+      </div>
+    </div>
+  </section>
+
+  <section style="border-bottom:none">
+    <div class="cta">
+      <h2>¿Arrancamos?</h2>
+      <p class="sub" style="margin:0 auto;max-width:520px">Si empezamos esta semana, tu tienda nueva queda lista antes de la temporada de Navidad.</p>
+      <a class="btn" href="https://wa.me/5212721553697?text=Hola%20Leo%2C%20quiero%20arrancar%20el%20redise%C3%B1o%20de%20Charms%20Lab" target="_blank" rel="noopener">Escríbeme por WhatsApp</a>
+      <div class="contact">Leonardo Rodríguez · <a href="https://wa.me/5212721553697" target="_blank" rel="noopener">+52 272 155 3697</a> · <a href="mailto:leonardo.rodriguez@myshopiguru.com">leonardo.rodriguez@myshopiguru.com</a></div>
+    </div>
+  </section>
+
+  <footer>Myshopiguru · Precio al tipo de cambio oficial del 21 de octubre de 2026 ($18.42 por dólar)</footer>
+</div>
+</body>
+</html>
